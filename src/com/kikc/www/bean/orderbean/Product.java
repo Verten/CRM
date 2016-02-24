@@ -62,7 +62,11 @@ public class Product {
 	}
 	
 	public Repertory getMinDistanceRepertory() {
-		return minDistanceRepertory;
+		if(minDistanceRepertory == null){
+			return new Repertory("");
+		}else{
+			return minDistanceRepertory;
+		}
 	}
 	public void setMinDistanceRepertory(Repertory minDistanceRepertory) {
 		this.minDistanceRepertory = minDistanceRepertory;
