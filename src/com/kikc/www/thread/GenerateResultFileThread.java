@@ -160,15 +160,22 @@ public class GenerateResultFileThread extends BaseThread implements Runnable {
 				}
 			}
 		}
-		
+
+		boolean generate_Flag = false;
 		try {
-			generateExcelFile(order_Repertory_result,repertory_product_result);
+			generate_Flag = generateExcelFile(order_Repertory_result,repertory_product_result);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			mf.getResultTextarea().append("\n" + e.getMessage());
 		} catch (IOException e) {
 			mf.getResultTextarea().append("\n" + e.getMessage());
 			e.printStackTrace();
+		}catch (Exception e) {
+			mf.getResultTextarea().append("\n" + e.getMessage());
+			e.printStackTrace();
+		}
+		if(!generate_Flag){
+			mf.getResultTextarea().append("\n生成失败！请将错误内容发送给管理员。");
 		}
 	}
 
