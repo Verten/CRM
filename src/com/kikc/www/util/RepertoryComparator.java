@@ -37,6 +37,9 @@ public class RepertoryComparator implements Comparator<Repertory> {
 		}else if(repertory1 < repertory2 && matchProductAmount1 < matchProductAmount2){
 			return 1;
 		}*/
+		if(o1 == o2){
+			return 0;
+		}
 		if(matchProductAmount1 == matchProductAmount2){
 			if (repertory1 > repertory2) {
 		      return 1;
@@ -68,7 +71,11 @@ public class RepertoryComparator implements Comparator<Repertory> {
 			      return -1;
 			    }*/
 			    if (matchProductAmount1 == matchProductAmount2) {
-					return level1.compareTo(level2) * -1;
+					if(level1.equals(level2)){
+						return 0;
+					}else{
+						return level1.compareTo(level2) * -1;
+					}
 			    }else{
 					int differenceAmount = matchProductAmount1 - matchProductAmount2;
 					if(differenceAmount < 0){
@@ -85,7 +92,11 @@ public class RepertoryComparator implements Comparator<Repertory> {
 							return 1;
 						}
 					}else{
-						return level1.compareTo(level2) * -1;
+						if(level1.equals(level2)){
+							return 0;
+						}else{
+							return level1.compareTo(level2) * -1;
+						}
 					}
 				}
 			    /*if (matchProductAmount1 < matchProductAmount2) {
