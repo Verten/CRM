@@ -45,6 +45,9 @@ public class ImportRepertoryAction extends BaseAction implements ActionListener 
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 				mf.getResultTextarea().append("\n" + e1.getMessage());
+			} catch (Exception e2 ){
+				e2.printStackTrace();
+				mf.getResultTextarea().append("\n" + e2.getMessage());
 			}
 		}
 	}

@@ -1,8 +1,8 @@
 package com.kikc.www.util;
 
-import java.util.Comparator;
-
 import com.kikc.www.bean.repertorybean.Repertory;
+
+import java.util.Comparator;
 
 public class RepertoryComparator implements Comparator<Repertory> {
 
@@ -81,7 +81,7 @@ public class RepertoryComparator implements Comparator<Repertory> {
 					if(differenceAmount < 0){
 						differenceAmount = differenceAmount * -1;
 					}
-					if(differenceAmount > matchProductAmount1 / 2 || differenceAmount > matchProductAmount2 / 2){
+						if(differenceAmount > matchProductAmount1 / 2 || differenceAmount > matchProductAmount2 / 2){
 						if(matchProductAmount1 > matchProductAmount2){
 							return -1;
 						}

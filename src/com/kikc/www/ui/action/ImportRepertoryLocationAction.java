@@ -40,6 +40,7 @@ public class ImportRepertoryLocationAction extends BaseAction implements ActionL
 			mf.getResultTextarea().setText(mf.getResultTextarea() + "\n库存信息为空！");
 			return;
 		}
+		boolean import_Flag = true;
 		int flag = jfc.showOpenDialog(mf);
 		if (flag == JFileChooser.APPROVE_OPTION) {
 			File file = jfc.getSelectedFile();
@@ -85,11 +86,18 @@ public class ImportRepertoryLocationAction extends BaseAction implements ActionL
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 				mf.getResultTextarea().append("\n" + e1.getMessage());
+				import_Flag = false;
+			} catch (Exception e2){
+				mf.getResultTextarea().append("\n" + e2.getMessage());
+				e2.printStackTrace();
+				import_Flag = false;
 			}
-			mf.getResultTextarea().setText(
-					mf.getResultTextarea().getText() + "\n更新库存成功！\n更新数据条数为： "
-							+ count);
-			mf.getGenerateResultButton().setEnabled(true);
+			if(import_Flag){
+				mf.getResultTextarea().setText(
+						mf.getResultTextarea().getText() + "\n更新库存成功！\n更新数据条数为： "
+								+ count);
+				mf.getGenerateResultButton().setEnabled(true);
+			}
 		}
 	}
 

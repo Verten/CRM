@@ -1,25 +1,5 @@
 package com.kikc.www.thread;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.CellRangeAddress;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-
 import com.kikc.www.bean.orderbean.Order;
 import com.kikc.www.bean.orderbean.Product;
 import com.kikc.www.bean.repertorybean.Repertory;
@@ -27,6 +7,16 @@ import com.kikc.www.bean.repertorybean.RepertoryProduct;
 import com.kikc.www.data.Data;
 import com.kikc.www.ui.MainFrame;
 import com.kikc.www.util.ExcelUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+
+import java.io.*;
+import java.util.*;
 
 public class GenerateResultFileThread extends BaseThread implements Runnable {
 
@@ -72,7 +62,7 @@ public class GenerateResultFileThread extends BaseThread implements Runnable {
 							if(product.getNumber().equals(
 									repertoryproduct.getProductNumber()) && product.getColor().equals(
 											repertoryproduct.getProductcolor()) && product.getSize().equals(
-													repertoryproduct.getProductsize()) && product.getCount() + 2 <= repertoryproduct
+													repertoryproduct.getProductsize()) && product.getCount() <= repertoryproduct
 															.getProductAmount()){
 								//if(product.getColor().equals(
 										//repertoryproduct.getProductcolor())){
@@ -160,15 +150,22 @@ public class GenerateResultFileThread extends BaseThread implements Runnable {
 				}
 			}
 		}
-		
+
+		boolean generate_Flag = false;
 		try {
-			generateExcelFile(order_Repertory_result,repertory_product_result);
+			generate_Flag = generateExcelFile(order_Repertory_result,repertory_product_result);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			mf.getResultTextarea().append("\n" + e.getMessage());
 		} catch (IOException e) {
 			mf.getResultTextarea().append("\n" + e.getMessage());
 			e.printStackTrace();
+		}catch (Exception e) {
+			mf.getResultTextarea().append("\n" + e.getMessage());
+			e.printStackTrace();
+		}
+		if(!generate_Flag){
+			mf.getResultTextarea().append("\n生成失败！请将错误内容发送给管理员。");
 		}
 	}
 
