@@ -1,19 +1,21 @@
 package com.kikc.www.thread;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import com.kikc.www.bean.mapbean.MapPoint;
 import com.kikc.www.bean.orderbean.Order;
 import com.kikc.www.bean.orderbean.Product;
 import com.kikc.www.bean.repertorybean.Repertory;
 import com.kikc.www.data.Data;
 import com.kikc.www.ui.MainFrame;
+import com.kikc.www.util.DateUtil;
 import com.kikc.www.util.DistanceUtils;
+import com.kikc.www.util.FileUtil;
 import com.kikc.www.util.RepertoryComparator;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public class SortDistanceOfRepertoryThread extends BaseThread implements Runnable {
 
@@ -85,9 +87,17 @@ public class SortDistanceOfRepertoryThread extends BaseThread implements Runnabl
 		Collections.sort(foundRepertory_list,
 				new RepertoryComparator());
 		System.out.println("------------------------------One match product list sort start-------------------------------------");
+		Date now = new Date();
+		String fileName = "All_match_result_" + DateUtil.date2String("yyyy-MM-dd", now) + ".txt";
+		File file = new File(fileName);
+		StringBuffer sb = new StringBuffer();
+		sb.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		for (Repertory tmpRepertory : foundRepertory_list) {
-			System.out.println("distance: " + tmpRepertory.getDistance() + ", match product amount: " + tmpRepertory.getMatchProductAmount() + " ,match level: " + tmpRepertory.getLevel());
+			System.out.println("Order location: "+ order.getReceiverLocation() + ", Repertory location: " + tmpRepertory.getDetailLocation() + ",distance: " + tmpRepertory.getDistance() + ", match product amount: " + tmpRepertory.getMatchProductAmount() + " ,match level: " + tmpRepertory.getLevel());
+			sb.append("订单号: " + order.getOrderId() + ", 店铺名称: " + tmpRepertory.getRepertoryName() + ", 距离: " + tmpRepertory.getDistance() + ", 店铺拥有产品数量: " + tmpRepertory.getMatchProductAmount() + ", 店铺等级: " + tmpRepertory.getLevel() + "\n");
 		}
+		sb.append("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+		FileUtil.writeFile(sb.toString(),file);
 		System.out.println("------------------------------One match product list sort end-------------------------------------");
 		if(foundRepertory_list.size() == 0){
 			product.setMinDistanceRepertory(new Repertory(""));
