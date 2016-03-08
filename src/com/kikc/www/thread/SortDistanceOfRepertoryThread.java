@@ -91,12 +91,12 @@ public class SortDistanceOfRepertoryThread extends BaseThread implements Runnabl
 		String fileName = "All_match_result_" + DateUtil.date2String("yyyy-MM-dd", now) + ".txt";
 		File file = new File(fileName);
 		StringBuffer sb = new StringBuffer();
-		sb.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		sb.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
 		for (Repertory tmpRepertory : foundRepertory_list) {
 			System.out.println("Order location: "+ order.getReceiverLocation() + ", Repertory location: " + tmpRepertory.getDetailLocation() + ",distance: " + tmpRepertory.getDistance() + ", match product amount: " + tmpRepertory.getMatchProductAmount() + " ,match level: " + tmpRepertory.getLevel());
 			sb.append("订单号: " + order.getOrderId() + ", 店铺名称: " + tmpRepertory.getRepertoryName() + ", 距离: " + tmpRepertory.getDistance() + ", 店铺拥有产品数量: " + tmpRepertory.getMatchProductAmount() + ", 店铺等级: " + tmpRepertory.getLevel() + "\n");
 		}
-		sb.append("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+		sb.append("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n");
 		FileUtil.writeFile(sb.toString(),file);
 		System.out.println("------------------------------One match product list sort end-------------------------------------");
 		if(foundRepertory_list.size() == 0){
