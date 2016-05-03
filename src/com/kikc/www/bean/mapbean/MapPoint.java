@@ -14,9 +14,10 @@ public class MapPoint {
 	}
 	public void setStatus(int status) {
 		this.status = status;
-		if(this.status == 1 ){
+		if(this.status != 0 ){
 			//无相关结果
 			Location l = new Location(0, 0);
+			this.result = new Result();
 			this.result.setLocation(l);
 		}
 	}

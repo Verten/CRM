@@ -1,10 +1,10 @@
 package com.kikc.www.util;
 
-import java.net.URLEncoder;
-
 import com.kikc.www.bean.mapbean.Location;
 import com.kikc.www.bean.mapbean.MapPoint;
 import com.kikc.www.bean.mapbean.Result;
+
+import java.net.URLEncoder;
 
 public class DistanceUtils {
 	private static double EARTH_RADIUS = 6370996.81;
@@ -77,9 +77,9 @@ public class DistanceUtils {
 	}
 	
 	public static MapPoint getOrderDistance(String orderAddress){
-		String order_address = URLEncoder.encode(orderAddress);
+		//String order_address = URLEncoder.encode(orderAddress);
 		String responseJSON = HttpUtils.sendGet("http://api.map.baidu.com/geocoder/v2/", 
-				"address="+ order_address +"&output=json");
+				"address="+ orderAddress +"&output=json");
 		
 		MapPoint order_mp = null;
 		try {

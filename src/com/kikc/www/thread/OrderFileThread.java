@@ -1,14 +1,5 @@
 package com.kikc.www.thread;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.kikc.www.bean.mapbean.MapPoint;
 import com.kikc.www.bean.orderbean.Order;
 import com.kikc.www.bean.orderbean.Product;
@@ -17,6 +8,11 @@ import com.kikc.www.ui.MainFrame;
 import com.kikc.www.util.DateUtil;
 import com.kikc.www.util.DistanceUtils;
 import com.kikc.www.util.ExcelUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.util.*;
 
 public class OrderFileThread extends BaseThread implements Runnable{
 
@@ -62,6 +58,7 @@ public class OrderFileThread extends BaseThread implements Runnable{
 						Integer.parseInt(order_data[16]),
 						Integer.parseInt(order_data[17]));
 				if (order_list.contains(order)) {
+					//System.out.println("contains exists order: " + order.toString());
 					for (Order existsOrder : order_list) {
 						if (existsOrder.equals(order)) {
 							order = existsOrder;
